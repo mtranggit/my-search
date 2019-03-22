@@ -1,8 +1,31 @@
-export const FETCH_BEERS_FULFILLED = 'FETCH_BEERS_FULFILLED'
+export const FETCH_FULFILLED = 'FETCH_BEERS_FULFILLED'
+export const SET_STATUS = 'SET_STATUS'
+export const FETCH_DATA = 'FETCH_DATA'
+export const SEARCH = 'SEARCH'
 
-export function fetchBeersFulfilled(beers) {
+export function fetchFulfilled(beers) {
   return {
-    type: FETCH_BEERS_FULFILLED,
+    type: FETCH_FULFILLED,
     payload: beers,
+  }
+}
+
+export function setStatus(status) {
+  return {
+    type: SET_STATUS,
+    payload: status,
+  }
+}
+
+export function fetchData() {
+  return {
+    type: FETCH_DATA,
+  }
+}
+
+export function search(input) {
+  return {
+    type: SEARCH,
+    payload: input,
   }
 }

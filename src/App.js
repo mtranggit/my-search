@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import './App.css'
 import {connect} from 'react-redux'
-import BeersList from './components/BeersList'
+import Beers from './components/Beers'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <BeersList />
+        <Beers />
       </div>
     )
   }
