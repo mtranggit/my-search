@@ -1,11 +1,20 @@
 import {ajax} from 'rxjs/ajax'
-import {map, switchMap, debounceTime, filter, catchError} from 'rxjs/operators'
+import {
+  map,
+  delay,
+  switchMap,
+  debounceTime,
+  filter,
+  catchError,
+  takeUntil,
+} from 'rxjs/operators'
 // import {map, switchMap, tap, ignoreElements} from 'rxjs/operators'
 import {
   SEARCH,
   fetchFulfilled,
   fetchFailed,
   setStatus,
+  CANCEL,
   // FETCH_DATA,
 } from '../reducers/beersAction'
 import {ofType} from 'redux-observable'
@@ -23,6 +32,9 @@ export function fetchBeersEpic(action$) {
       return concat(
         of(setStatus('pending')),
         ajax.getJSON(searchQuery(payload)).pipe(
+          delay(5000), // simulate network busy, delay
+          // accepts any observable until CANCEL, then unsubscribe to the ajax request
+          takeUntil(action$.pipe(ofType(CANCEL))),
           map(fetchFulfilled),
           catchError(error => {
             return of(fetchFailed(error.response.message))

@@ -2,6 +2,8 @@ export const FETCH_FULFILLED = 'FETCH_BEERS_FULFILLED'
 export const SET_STATUS = 'SET_STATUS'
 export const FETCH_DATA = 'FETCH_DATA'
 export const SEARCH = 'SEARCH'
+export const CANCEL = 'CANCEL'
+export const RESET = 'RESET'
 export const FETCH_FAILED = 'FETCH_FAILED'
 
 export function fetchFulfilled(beers) {
@@ -28,6 +30,18 @@ export function search(input) {
   return {
     type: SEARCH,
     payload: input,
+  }
+}
+
+export function cancel() {
+  return {
+    type: CANCEL,
+  }
+}
+
+export function reset() {
+  return {
+    type: RESET,
   }
 }
 

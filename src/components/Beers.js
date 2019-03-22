@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {BeersList} from './BeersList'
-import {search} from '../reducers/beersAction'
+import {search, cancel} from '../reducers/beersAction'
 // import {fetchData} from '../reducers/beersAction'
 
 export function Beers(props) {
-  const {data, status, search, messages} = props
+  const {data, status, search, cancel, messages} = props
   // const {data, status, fetchData} = props
   return (
     <>
@@ -19,9 +19,14 @@ export function Beers(props) {
           Fetch Beers!
         </button> */}
         {status === 'pending' && (
-          <div className="App-spinner">
-            <img src={'/ajax-loader.gif'} alt="Loading..." />
-          </div>
+          <>
+            <button type="button" onClick={cancel}>
+              Cancel
+            </button>
+            <span className="App-spinner">
+              <img src={'/ajax-loader.gif'} alt="Loading..." />
+            </span>
+          </>
         )}
       </div>
       {status === 'success' && (
@@ -41,5 +46,5 @@ export function Beers(props) {
 export default connect(
   state => state.beers,
   // {fetchData},
-  {search},
+  {search, cancel},
 )(Beers)
