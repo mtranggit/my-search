@@ -5,7 +5,7 @@ import {search} from '../reducers/beersAction'
 // import {fetchData} from '../reducers/beersAction'
 
 export function Beers(props) {
-  const {data, status, search} = props
+  const {data, status, search, messages} = props
   // const {data, status, fetchData} = props
   return (
     <>
@@ -27,6 +27,11 @@ export function Beers(props) {
       {status === 'success' && (
         <div className="App-content">
           <BeersList beers={data} />
+        </div>
+      )}
+      {status === 'failure' && (
+        <div className="App-messages">
+          <p>Sorry, {messages[0].text}</p>
         </div>
       )}
     </>

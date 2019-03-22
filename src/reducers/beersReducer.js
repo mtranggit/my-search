@@ -1,9 +1,10 @@
-import {FETCH_FULFILLED, SET_STATUS} from './beersAction'
+import {FETCH_FULFILLED, FETCH_FAILED, SET_STATUS} from './beersAction'
 
 const initialState = {
   data: [],
   // loading: true,
   status: 'idle', // 'idle' | 'pending' | 'success' | 'failure'
+  messages: [],
 }
 
 export function beersReducer(state = initialState, action) {
@@ -20,6 +21,15 @@ export function beersReducer(state = initialState, action) {
         // loading: false,
         status: 'success',
         data: action.payload,
+        messages: [],
+      }
+    }
+    case FETCH_FAILED: {
+      return {
+        ...state,
+        // loading: false,
+        status: 'failure',
+        messages: [{type: 'error', text: action.payload}],
       }
     }
     default: {
