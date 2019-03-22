@@ -1,6 +1,7 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import {appReducer} from './reducers/appReducer'
 import {beersReducer} from './reducers/beersReducer'
+import {configReducer} from './reducers/configReducer'
 
 import {combineEpics, createEpicMiddleware} from 'redux-observable'
 // import {of} from 'rxjs'
@@ -20,6 +21,7 @@ export function configureStore() {
   const rootReducer = combineReducers({
     app: appReducer,
     beers: beersReducer,
+    config: configReducer,
   })
 
   const store = createStore(
