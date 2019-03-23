@@ -25,8 +25,8 @@ import {ofType} from 'redux-observable'
 import {concat, of, fromEvent, merge, race} from 'rxjs'
 
 // const API = 'https://api.punkapi.com/v2/beers'
-const searchQuery = (apiBase, term) =>
-  `${apiBase}?beer_name=${encodeURIComponent(term)}`
+const searchQuery = (apiBase, perPage, term) =>
+  `${apiBase}?beer_name=${encodeURIComponent(term)}&per_page=${perPage}`
 // const searchQuery = term => `${API}?beer_name=${encodeURIComponent(term)}`
 
 export function fetchBeersEpic(action$, state$) {
@@ -34,10 +34,10 @@ export function fetchBeersEpic(action$, state$) {
     ofType(SEARCH),
     debounceTime(500),
     filter(({payload}) => payload.trim() !== ''),
-    withLatestFrom(state$.pipe(pluck('config', 'apiBase'))),
-    switchMap(([{payload}, apiBase]) => {
+    withLatestFrom(state$.pipe(pluck('config'))),
+    switchMap(([{payload}, config]) => {
       const ajax$ = ajax
-        .getJSON(searchQuery(apiBase, payload)) // better this way
+        .getJSON(searchQuery(config.apiBase, config.perPage, payload)) // better this way
         // .getJSON(searchQuery(state$.value.config.apiBase, payload))
         .pipe(
           // delay(5000), // simulate network delay
