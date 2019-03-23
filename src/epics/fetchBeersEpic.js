@@ -1,4 +1,4 @@
-import {ajax} from 'rxjs/ajax'
+// import {ajax} from 'rxjs/ajax'
 import {
   map,
   mapTo,
@@ -13,7 +13,7 @@ import {
 } from 'rxjs/operators'
 // import {map, switchMap, tap, ignoreElements} from 'rxjs/operators'
 import {
-  RANDOM,
+  // RANDOM,
   SEARCH,
   CANCEL,
   reset,
@@ -23,14 +23,21 @@ import {
   // FETCH_DATA,
 } from '../reducers/beersAction'
 import {ofType} from 'redux-observable'
-import {forkJoin, concat, of, fromEvent, merge, race} from 'rxjs'
+import {
+  // forkJoin,
+  concat,
+  of,
+  fromEvent,
+  merge,
+  race,
+} from 'rxjs'
 
 // const API = 'https://api.punkapi.com/v2/beers'
 const searchQuery = (apiBase, perPage, term) =>
   `${apiBase}?beer_name=${encodeURIComponent(term)}&per_page=${perPage}`
 // const searchQuery = term => `${API}?beer_name=${encodeURIComponent(term)}`
 
-const random = apiBase => `${apiBase}/random`
+// const random = apiBase => `${apiBase}/random`
 
 export function fetchBeersEpic(action$, state$, {getJSON}) {
   // export function fetchBeersEpic(action$, state$) {

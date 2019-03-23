@@ -1,7 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {BeersList} from './BeersList'
-import {search, random, cancel} from '../reducers/beersAction'
+import {
+  search,
+  // random,
+  cancel,
+} from '../reducers/beersAction'
 import {setConfig} from '../reducers/configAction'
 // import {fetchData} from '../reducers/beersAction'
 
