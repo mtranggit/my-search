@@ -9,8 +9,8 @@ export function Beers(props) {
   const {
     data,
     status,
-    // search,
-    random,
+    search,
+    // random,
     config,
     setConfig,
     cancel,
@@ -33,14 +33,14 @@ export function Beers(props) {
             )
           })}
         </select>
-        {/* <input
+        <input
           type="text"
           placeholder="Search beers"
           onChange={e => search(e.target.value)}
-        /> */}
-        <button onClick={random} disabled={status === 'pending'}>
+        />
+        {/* <button onClick={random} disabled={status === 'pending'}>
           Fetch Random Beers!
-        </button>
+        </button> */}
         {/* <button onClick={fetchData} disabled={status === 'pending'}>
           Fetch Beers!
         </button> */}
@@ -80,8 +80,8 @@ export default connect(
   // state => state.beers,
   // {fetchData},
   {
-    //search,
-    random,
+    search,
+    // random,
     cancel,
     setConfig,
   },

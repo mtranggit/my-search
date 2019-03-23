@@ -14,7 +14,7 @@ import {
 // import {map, switchMap, tap, ignoreElements} from 'rxjs/operators'
 import {
   RANDOM,
-  // SEARCH,
+  SEARCH,
   CANCEL,
   reset,
   fetchFulfilled,
@@ -26,27 +26,30 @@ import {ofType} from 'redux-observable'
 import {forkJoin, concat, of, fromEvent, merge, race} from 'rxjs'
 
 // const API = 'https://api.punkapi.com/v2/beers'
-// const searchQuery = (apiBase, perPage, term) =>
-//   `${apiBase}?beer_name=${encodeURIComponent(term)}&per_page=${perPage}`
+const searchQuery = (apiBase, perPage, term) =>
+  `${apiBase}?beer_name=${encodeURIComponent(term)}&per_page=${perPage}`
 // const searchQuery = term => `${API}?beer_name=${encodeURIComponent(term)}`
 
 const random = apiBase => `${apiBase}/random`
 
-export function fetchBeersEpic(action$, state$) {
+export function fetchBeersEpic(action$, state$, {getJSON}) {
+  // export function fetchBeersEpic(action$, state$) {
   return action$.pipe(
-    ofType(RANDOM),
-    // ofType(SEARCH),
+    // ofType(RANDOM),
+    ofType(SEARCH),
     debounceTime(500),
-    // filter(({payload}) => payload.trim() !== ''),
+    filter(({payload}) => payload.trim() !== ''),
     withLatestFrom(state$.pipe(pluck('config'))),
 
     switchMap(([{payload}, config]) => {
-      const reqs = [...Array(config.perPage)].map(() => {
-        return ajax.getJSON(random(config.apiBase)).pipe(pluck(0))
-      })
-      const ajax$ = forkJoin(reqs)
-        // ajax.getJSON(searchQuery(config.apiBase, config.perPage, payload)) // better this way
-        // ajax.getJSON(searchQuery(state$.value.config.apiBase, payload))
+      // const reqs = [...Array(config.perPage)].map(() => {
+      //   return ajax.getJSON(random(config.apiBase)).pipe(pluck(0))
+      // })
+      // const ajax$ = forkJoin(reqs)
+      const ajax$ = getJSON(
+        searchQuery(config.apiBase, config.perPage, payload),
+      )
+        //const ajax$ = ajax.getJSON(searchQuery(state$.value.config.apiBase, payload))
         .pipe(
           // delay(5000), // simulate network delay
           map(fetchFulfilled),

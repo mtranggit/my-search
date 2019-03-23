@@ -9,13 +9,21 @@ import {combineEpics, createEpicMiddleware} from 'redux-observable'
 import {fetchBeersEpic} from './epics/fetchBeersEpic'
 import {persistEpic} from './epics/persistEpic'
 import {hydrateEpic} from './epics/hydrateEpic'
+import {ajax} from 'rxjs/ajax'
 
 // const epic1 = () => of({type: 'SET_NAME', payload: 'Richard'}).pipe(delay(2000))
 
-export function configureStore() {
+export function configureStore(dependencies = {}) {
   const rootEpic = combineEpics(fetchBeersEpic, persistEpic, hydrateEpic)
 
-  const epicMiddleware = createEpicMiddleware()
+  // inject dependencies into our epics
+  const epicMiddleware = createEpicMiddleware({
+    dependencies: {
+      getJSON: ajax.getJSON,
+      ...dependencies,
+    },
+  })
+  // const epicMiddleware = createEpicMiddleware()
 
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
