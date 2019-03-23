@@ -7,11 +7,13 @@ import {combineEpics, createEpicMiddleware} from 'redux-observable'
 // import {of} from 'rxjs'
 // import {delay} from 'rxjs/operators'
 import {fetchBeersEpic} from './epics/fetchBeersEpic'
+import {persistEpic} from './epics/persistEpic'
+import {hydrateEpic} from './epics/hydrateEpic'
 
 // const epic1 = () => of({type: 'SET_NAME', payload: 'Richard'}).pipe(delay(2000))
 
 export function configureStore() {
-  const rootEpic = combineEpics(fetchBeersEpic)
+  const rootEpic = combineEpics(fetchBeersEpic, persistEpic, hydrateEpic)
 
   const epicMiddleware = createEpicMiddleware()
 

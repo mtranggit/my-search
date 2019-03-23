@@ -6,13 +6,14 @@ import {setConfig} from '../reducers/configAction'
 // import {fetchData} from '../reducers/beersAction'
 
 export function Beers(props) {
-  const {data, status, search, setConfig, cancel, messages} = props
+  const {data, status, search, config, setConfig, cancel, messages} = props
   // const {data, status, fetchData} = props
   return (
     <>
       <div className="App-inputs">
         <select
           name="perPage"
+          defaultValue={config.perPage}
           onChange={e => setConfig({perPage: Number(e.target.value)})}
         >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(value => {
