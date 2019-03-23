@@ -1,12 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {BeersList} from './BeersList'
-import {search, cancel} from '../reducers/beersAction'
+import {search, random, cancel} from '../reducers/beersAction'
 import {setConfig} from '../reducers/configAction'
 // import {fetchData} from '../reducers/beersAction'
 
 export function Beers(props) {
-  const {data, status, search, config, setConfig, cancel, messages} = props
+  const {
+    data,
+    status,
+    // search,
+    random,
+    config,
+    setConfig,
+    cancel,
+    messages,
+  } = props
   // const {data, status, fetchData} = props
   return (
     <>
@@ -24,11 +33,14 @@ export function Beers(props) {
             )
           })}
         </select>
-        <input
+        {/* <input
           type="text"
           placeholder="Search beers"
           onChange={e => search(e.target.value)}
-        />
+        /> */}
+        <button onClick={random} disabled={status === 'pending'}>
+          Fetch Random Beers!
+        </button>
         {/* <button onClick={fetchData} disabled={status === 'pending'}>
           Fetch Beers!
         </button> */}
@@ -67,5 +79,10 @@ export default connect(
   mapStateToProps,
   // state => state.beers,
   // {fetchData},
-  {search, cancel, setConfig},
+  {
+    //search,
+    random,
+    cancel,
+    setConfig,
+  },
 )(Beers)

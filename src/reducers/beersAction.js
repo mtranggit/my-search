@@ -2,6 +2,7 @@ export const FETCH_FULFILLED = 'FETCH_BEERS_FULFILLED'
 export const SET_STATUS = 'SET_STATUS'
 export const FETCH_DATA = 'FETCH_DATA'
 export const SEARCH = 'SEARCH'
+export const RANDOM = 'RANDOM'
 export const CANCEL = 'CANCEL'
 export const RESET = 'RESET'
 export const FETCH_FAILED = 'FETCH_FAILED'
@@ -49,5 +50,11 @@ export function fetchFailed(message) {
   return {
     type: FETCH_FAILED,
     payload: message,
+  }
+}
+
+export function random() {
+  return {
+    type: RANDOM,
   }
 }
