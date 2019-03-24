@@ -6,7 +6,7 @@ import {
   SET_STATUS,
 } from './beersAction'
 
-const initialState = {
+export const initialState = {
   data: [],
   // loading: true,
   status: 'idle', // 'idle' | 'pending' | 'success' | 'failure'
