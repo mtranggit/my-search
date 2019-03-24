@@ -11,16 +11,15 @@ import {
 import {initialState} from '../../reducers/configReducer'
 import {fetchBeersEpic} from '../fetchBeersEpic'
 
-const testScheduler = new TestScheduler((actual, expected) => {
-  expect(actual).toEqual(expected)
+let testScheduler
+beforeEach(() => {
+  testScheduler = new TestScheduler((actual, expected) => {
+    expect(actual).toEqual(expected)
+  })
 })
 
 it('produces correct success actions', function() {
-  // const testScheduler = new TestScheduler((actual, expected) => {
-  //   expect(actual).toEqual(expected)
-  // })
-
-  testScheduler.run(({hot, cold, expectObservable, flush}) => {
+  testScheduler.run(({hot, cold, expectObservable}) => {
     const action$ = hot('a', {
       a: search('ship'),
     })
@@ -30,36 +29,22 @@ it('produces correct success actions', function() {
     const dependencies = {
       getJSON: url => {
         return cold('-a', {
-          a: [
-            {
-              name: 'Beer 1',
-            },
-          ],
+          a: [{name: 'Beer 1'}],
         })
       },
     }
+
     const output$ = fetchBeersEpic(action$, state$, dependencies)
 
-    // expectObservable(output$).toBe('500ms ab', {
-    //   a: setStatus('pending'),
-    //   b: fetchFulfilled([{name: 'Beer 1'}]),
-    // })
-
-    setTimeout(() => {
-      expectObservable(output$).toBe('500ms ab', {
-        a: setStatus('pending'),
-        b: fetchFulfilled([{name: 'Beer 1'}]),
-      })
-    }, 0)
+    expectObservable(output$).toBe('500ms ab', {
+      a: setStatus('pending'),
+      b: fetchFulfilled([{name: 'Beer 1'}]),
+    })
   })
 })
 
 it('produces correct error actions', function() {
-  // const testScheduler = new TestScheduler((actual, expected) => {
-  //   expect(actual).toEqual(expected)
-  // })
-
-  testScheduler.run(({hot, cold, expectObservable, flush}) => {
+  testScheduler.run(({hot, cold, expectObservable}) => {
     const action$ = hot('a', {
       a: search('ship'),
     })
@@ -77,22 +62,15 @@ it('produces correct error actions', function() {
     }
     const output$ = fetchBeersEpic(action$, state$, dependencies)
 
-    // expectObservable(output$).toBe('500ms ab', {
-    //   a: setStatus('pending'),
-    //   b: fetchFulfilled([{name: 'Beer 1'}]),
-    // })
-
-    setTimeout(() => {
-      expectObservable(output$).toBe('500ms ab', {
-        a: setStatus('pending'),
-        b: fetchFulfilled('Sorry, an error has occurred'),
-      })
-    }, 0)
+    expectObservable(output$).toBe('500ms ab', {
+      a: setStatus('pending'),
+      b: fetchFailed('Sorry, an error has occurred'),
+    })
   })
 })
 
 it('produces correct reset actions', function() {
-  testScheduler.run(({hot, cold, expectObservable, flush}) => {
+  testScheduler.run(({hot, cold, expectObservable}) => {
     const action$ = hot('a 500ms -b', {
       a: search('ship'),
       b: cancel(),
@@ -105,17 +83,9 @@ it('produces correct reset actions', function() {
     }
     const output$ = fetchBeersEpic(action$, state$, dependencies)
 
-    // expectObservable(output$).toBe('500ms ab', {
-    //   a: setStatus('pending'),
-    //   b: fetchFulfilled([{name: 'Beer 1'}]),
-    // })
-
-    setTimeout(() => {
-      expectObservable(output$).toBe('500ms a-b', {
-        a: setStatus('pending'),
-        b: reset(),
-      })
-    }, 0)
-    // flush()
+    expectObservable(output$).toBe('500ms a-b', {
+      a: setStatus('pending'),
+      b: reset(),
+    })
   })
 })
