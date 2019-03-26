@@ -1,4 +1,4 @@
-import {SET_CONFIG} from './configAction'
+import {SET_CONFIG} from '../actions/configAction'
 
 export const initialState = {
   apiBase: 'https://api.punkapi.com/v2/beers',
@@ -18,3 +18,5 @@ export function configReducer(state = initialState, action) {
     }
   }
 }
+
+export default configReducer

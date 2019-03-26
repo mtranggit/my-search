@@ -7,6 +7,9 @@ export const CANCEL = 'CANCEL'
 export const RESET = 'RESET'
 export const FETCH_FAILED = 'FETCH_FAILED'
 
+export const DEBOUNCE_INPUT_CHANGE = 'DEBOUNCE_INPUT_CHANGE'
+export const THROTTLE_INPUT_CHANGE = 'THROTTLE_INPUT_CHANGE'
+
 export function fetchFulfilled(beers) {
   return {
     type: FETCH_FULFILLED,
@@ -56,5 +59,19 @@ export function fetchFailed(message) {
 export function random() {
   return {
     type: RANDOM,
+  }
+}
+
+export function debounceInputChange(input) {
+  return {
+    type: DEBOUNCE_INPUT_CHANGE,
+    payload: input,
+  }
+}
+
+export function throttleInputChange(input) {
+  return {
+    type: THROTTLE_INPUT_CHANGE,
+    payload: input,
   }
 }

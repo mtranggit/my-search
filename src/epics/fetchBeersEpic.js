@@ -21,7 +21,7 @@ import {
   fetchFailed,
   setStatus,
   // FETCH_DATA,
-} from '../reducers/beersAction'
+} from '../actions/beersAction'
 import {ofType} from 'redux-observable'
 import {
   // forkJoin,

@@ -1,5 +1,5 @@
 import {CACHE_KEY} from './persistEpic'
-import {setConfig} from '../reducers/configAction'
+import {setConfig} from '../actions/configAction'
 import {EMPTY, of} from 'rxjs'
 export function hydrateEpic() {
   const maybeConfig = localStorage.getItem(CACHE_KEY)

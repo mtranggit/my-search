@@ -1,5 +1,5 @@
 import {ofType} from 'redux-observable'
-import {SET_CONFIG} from '../reducers/configAction'
+import {SET_CONFIG} from '../actions/configAction'
 import {pluck, tap, withLatestFrom, ignoreElements} from 'rxjs/operators'
 
 export const CACHE_KEY = 'ro-config'

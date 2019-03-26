@@ -4,7 +4,7 @@ import {
   FETCH_FULFILLED,
   FETCH_FAILED,
   SET_STATUS,
-} from './beersAction'
+} from '../actions/beersAction'
 
 export const initialState = {
   data: [],

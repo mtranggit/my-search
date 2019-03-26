@@ -1,6 +1,6 @@
 p {
   margin: 0;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   padding: 0;
 }
 ul {
@@ -9,7 +9,6 @@ ul {
 }
 
 .App {
-
 }
 
 .App-logo {
@@ -53,13 +52,12 @@ ul {
 }
 
 .List {
-
   padding-left: 1em;
   padding-right: 1em;
 }
 
 .List-item {
-  padding: .5em;
+  padding: 0.5em;
   display: flex;
   background: white;
   margin-bottom: 1em;
@@ -85,9 +83,21 @@ ul {
 
 @keyframes App-logo-spin {
   from {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
+}
+
+.model {
+  background: #808080;
+  position: absolute;
+  height: 100px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  top: 140px;
 }
